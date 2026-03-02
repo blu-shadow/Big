@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details | DadaXWear</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <style>
+        :root {
+            --bg: #0d0f12;
+            --card: #161a1e;
+            --primary: #e8491d;
+            --text: #ffffff;
+            --text-gray: #8e9aaf;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+        body { background: var(--bg); color: var(--text); margin: 0; font-family: 'Poppins', sans-serif; padding-bottom: 100px; }
+        .details-wrapper { max-width: 600px; margin: 0 auto; }
+
+        .back-nav {
+            position: fixed; top: 20px; left: 20px; z-index: 1000;
+            background: rgba(0,0,0,0.5); color: #fff;
+            width: 45px; height: 45px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            backdrop-filter: blur(10px); transition: 0.3s; text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Swiper Slider Styling */
+        .swiper { width: 100%; height: 450px; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; overflow: hidden; }
+        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; background: #1a1d21; }
+        .swiper-pagination-bullet { background: #fff; opacity: 0.5; }
+        .swiper-pagination-bullet-active { background: var(--primary); opacity: 1; width: 20px; border-radius: 5px; }
+
+        .details-card {
+            background: var(--card); margin-top: -40px; border-radius: 40px 40px 0 0;
+            padding: 35px 25px; position: relative; z-index: 10;
+            border: 1px solid var(--border); box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+        }
+
+        .p-badge {
+            background: rgba(232, 73, 29, 0.1); color: var(--primary);
+            padding: 6px 16px; border-radius: 50px; font-size: 0.7rem;
+            font-weight: 700; text-transform: uppercase; display: inline-block;
+            margin-bottom: 10px; border: 1px solid rgba(232, 73, 29, 0.2);
+        }
+
+        .p-name { font-size: 1.6rem; font-weight: 800; margin: 10px 0; line-height: 1.3; }
+        .p-price-big { font-size: 1.8rem; color: var(--primary); font-weight: 800; margin-bottom: 25px; }
+
+        .selector-label { font-size: 0.85rem; color: var(--text-gray); margin-bottom: 12px; font-weight: 500; }
+
+        .size-grid { display: flex; gap: 10px; margin-bottom: 30px; overflow-x: auto; padding-bottom: 5px; }
+        .size-chip {
+            min-width: 60px; padding: 12px; border: 1px solid var(--border);
+            border-radius: 15px; text-align: center; cursor: pointer;
+            font-weight: 700; transition: 0.3s; background: #1a1d21; font-size: 0.9rem;
+        }
+        .size-chip.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+        .desc-box { border-top: 1px solid var(--border); padding-top: 25px; margin-top: 10px; }
+        .desc-box p { color: var(--text-gray); line-height: 1.8; font-size: 0.95rem; }
+
+        .sticky-actions {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: rgba(13, 15, 18, 0.95); padding: 20px;
+            display: flex; gap: 15px; border-top: 1px solid var(--border);
+            z-index: 200; backdrop-filter: blur(20px); max-width: 600px; margin: 0 auto;
+        }
+
+        .cart-icon-btn {
+            width: 60px; height: 60px; border-radius: 18px;
+            background: #1a1d21; border: 1px solid var(--border);
+            color: var(--text); font-size: 1.4rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .buy-now-full {
+            flex: 1; border-radius: 18px; background: var(--primary);
+            color: white; border: none; font-weight: 800;
+            font-size: 1.1rem; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        #toast {
+            position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
+            background: #fff; color: #000; padding: 12px 25px; border-radius: 50px;
+            font-weight: 700; font-size: 0.85rem; z-index: 2000; display: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .show-toast #toast { display: block; animation: slideUp 0.3s ease; }
+        @keyframes slideUp { from { transform: translate(-50%, 20px); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
+
+        #loading-state { text-align: center; padding: 200px 20px; }
+    </style>
+</head>
+<body>
+
+    <div id="toast">✅ Added to Bag!</div>
+
+    <a href="index.html" class="back-nav"><i class="fas fa-arrow-left"></i></a>
+
+    <div class="details-wrapper" id="main-content">
+        <div id="loading-state">
+            <i class="fas fa-circle-notch fa-spin" style="font-size: 2rem; color: var(--primary);"></i>
+            <p style="margin-top:20px; color: var(--text-gray);">Fetching details...</p>
+        </div>
+    </div>
+
+    <div class="sticky-actions" id="action-bar" style="display:none;">
+        <button class="cart-icon-btn" onclick="addToBag()">
+            <i class="fas fa-shopping-bag"></i>
+        </button>
+        <button class="buy-now-full" onclick="orderNow()">
+            Order Now <i class="fas fa-bolt" style="margin-left:8px;"></i>
+        </button>
+    </div>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+        const BASE_URL = 'http://156.67.219.98:5001';
+        const API_URL = `${BASE_URL}/api/products`;
+
+        const getProductId = () => {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('id');
+        };
+
+        let product = null;
+        let selectedSize = 'L';
+
+        async function initPage() {
+            const id = getProductId();
+            if (!id) return;
+
+            try {
+                const res = await fetch(`${API_URL}/${id}`);
+                if (res.ok) {
+                    product = await res.json();
+                } else {
+                    const allRes = await fetch(API_URL);
+                    const allProducts = await allRes.json();
+                    product = allProducts.find(p => p._id === id);
+                }
+                if (product) renderProduct();
+            } catch (err) { console.error(err); }
+        }
+
+        function renderProduct() {
+            const main = document.getElementById('main-content');
+            const actionBar = document.getElementById('action-bar');
+
+            // ছবির স্লাইড তৈরি করা
+            const mainImg = product.image.startsWith('http') ? product.image : `${BASE_URL}${product.image}`;
+            let slides = `<div class="swiper-slide"><img src="${mainImg}"></div>`;
+            
+            // যদি গ্যালারি ছবি থাকে তবে সেগুলো যোগ করা
+            if (product.gallery && product.gallery.length > 0) {
+                product.gallery.forEach(img => {
+                    const gImg = img.startsWith('http') ? img : `${BASE_URL}${img}`;
+                    slides += `<div class="swiper-slide"><img src="${gImg}"></div>`;
+                });
+            }
+
+            const isJersey = (product.category || "").toLowerCase().includes('jersey');
+
+            main.innerHTML = `
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">${slides}</div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                
+                <div class="details-card">
+                    <span class="p-badge">${product.category || 'New Arrival'}</span>
+                    <h1 class="p-name">${product.name}</h1>
+                    <p class="p-price-big">${Number(product.price).toLocaleString()} TK</p>
+
+                    ${isJersey ? `
+                        <p class="selector-label">Select Size</p>
+                        <div class="size-grid">
+                            ${['M', 'L', 'XL', 'XXL'].map(s => `
+                                <div class="size-chip ${s === 'L' ? 'active' : ''}" onclick="changeSize(this, '${s}')">${s}</div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+
+                    <div class="desc-box">
+                        <p class="selector-label">Product Details</p>
+                        <p>${product.description || 'Premium quality product from DadaXWear. Modern design with comfortable fabric.'}</p>
+                    </div>
+                </div>
+            `;
+            
+            actionBar.style.display = 'flex';
+
+            // স্লাইডার চালু করা
+            new Swiper(".mySwiper", {
+                pagination: { el: ".swiper-pagination", clickable: true },
+                loop: product.gallery && product.gallery.length > 0
+            });
+        }
+
+        window.changeSize = (el, size) => {
+            document.querySelectorAll('.size-chip').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            selectedSize = size;
+        };
+
+        window.addToBag = () => {
+            let cart = JSON.parse(localStorage.getItem('dxw_cart') || '[]');
+            const isJersey = (product.category || "").toLowerCase().includes('jersey');
+            const sizeValue = isJersey ? selectedSize : 'Free Size';
+
+            cart.push({
+                id: product._id,
+                name: product.name,
+                price: Number(product.price),
+                image: product.image,
+                size: sizeValue,
+                quantity: 1
+            });
+
+            localStorage.setItem('dxw_cart', JSON.stringify(cart));
+            document.body.classList.add('show-toast');
+            setTimeout(() => document.body.classList.remove('show-toast'), 2000);
+        };
+
+        window.orderNow = () => {
+            addToBag();
+            window.location.href = 'checkout.html';
+        };
+
+        window.addEventListener('load', initPage);
+    </script>
+</body>
+</html>

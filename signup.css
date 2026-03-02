@@ -1,0 +1,49 @@
+/* signup.css - Specific additions for signup page */
+
+.auth-card {
+    margin-top: 50px; /* স্পেস বাড়ানোর জন্য */
+    margin-bottom: 50px;
+}
+
+.terms-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.terms-box input[type="checkbox"] {
+    accent-color: var(--primary);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.terms-box label {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    cursor: pointer;
+}
+
+.terms-box label a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* রেজিস্ট্রেশন ফর্মের ইনপুট ফোকাস ইফেক্ট */
+.input-box input:focus {
+    background: rgba(255, 107, 0, 0.05);
+    box-shadow: 0 0 10px var(--primary-glow);
+}
+
+/* মোবাইল ভিউ অপ্টিমাইজেশন */
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 30px 20px;
+        border: none;
+        box-shadow: none;
+        background: transparent;
+    }
+}

@@ -1,0 +1,137 @@
+/* DadaXWear Premium Login/Setup CSS */
+:root {
+    --primary-orange: #ff8c00;
+    --bg-dark: #121418;
+    --input-bg: #e0e6ed;
+    --input-dark-bg: #1c1f26;
+    --text-white: #ffffff;
+    --text-gray: #a0a0a0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.login-container {
+    width: 90%;
+    max-width: 400px;
+    padding: 20px 0;
+}
+
+.profile-setup-card {
+    background: #1a1d24;
+    padding: 30px 20px;
+    border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Image Upload */
+.image-upload-section {
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-preview {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid var(--primary-orange);
+    overflow: hidden;
+    margin-bottom: 15px;
+    background: #000;
+}
+
+.image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.upload-label-btn {
+    background: var(--primary-orange);
+    color: #fff;
+    padding: 8px 25px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Form */
+.setup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-field input, .input-field textarea {
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: 12px;
+    border: none;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+/* Light background for Name, Email, Phone, Address (as per your image) */
+.input-field:nth-child(1) input,
+.input-field:nth-child(3) input,
+.input-field:nth-child(4) input,
+.input-field:nth-child(7) textarea {
+    background: #e6edfb;
+    color: #333;
+}
+
+/* Dark background for Username, Birth Year, Age */
+.input-field:nth-child(2) input,
+.input-field:nth-child(5) input,
+.input-field:nth-child(6) input {
+    background: #1c1f26;
+    color: #fff;
+    border: 1px solid #333;
+}
+
+.create-btn {
+    background: var(--primary-orange);
+    color: #fff;
+    border: none;
+    padding: 16px;
+    border-radius: 15px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+    box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3);
+}
+
+.create-btn:active {
+    transform: scale(0.98);
+}
+
+/* Toast */
+#toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: none;
+    z-index: 1000;
+}

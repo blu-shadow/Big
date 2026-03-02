@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gents Choice - Admin Panel</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root { --primary: #e8491d; --dark: #0a0a0a; --card: #141414; --text-light: #ffffff; --text-gray: #a0a0a0; --border: rgba(255, 255, 255, 0.08); --success: #2ecc71; --danger: #ff4d4d; }
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+body { background-color: var(--dark); color: var(--text-light); padding-bottom: 80px; }
+    .header { background: #000; padding: 15px 20px; border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; }
+    .header h1 { font-size: 1.1rem; flex: 1; text-align: center; font-weight: 700; }
+    .header h1 span { color: var(--primary); }
+
+    .logout-btn { color: var(--danger); background: none; border: none; font-size: 1.2rem; cursor: pointer; transition: 0.3s; }
+    .logout-btn:hover { transform: scale(1.1); }
+
+    .container { padding: 15px; max-width: 800px; margin: 0 auto; }
+    h2 { font-size: 0.9rem; margin: 25px 0 12px; display: flex; align-items: center; gap: 10px; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; }
+
+    .form-card { background: var(--card); padding: 20px; border-radius: 15px; border: 1px solid var(--border); margin-bottom: 20px; }
+    .input-group { margin-bottom: 15px; }
+    label { display: block; font-size: 0.75rem; color: var(--text-gray); margin-bottom: 5px; }
+
+    input, textarea, select { background: #222; color: #fff; padding: 12px; border-radius: 8px; width: 100%; border: 1px solid #333; font-size: 0.9rem; outline: none; transition: 0.3s; }
+    input:focus, select:focus { border-color: var(--primary); }
+
+    .action-btn { background: var(--primary); color: #fff; border: none; padding: 12px; border-radius: 10px; font-weight: 600; cursor: pointer; width: 100%; display: flex; justify-content: center; align-items: center; gap: 8px; transition: 0.3s; }
+    .action-btn:hover { background: #ff5e31; }
+
+    #currentLogo { max-width: 100px; margin-bottom: 15px; border-radius: 8px; background: #fff; padding: 4px; display: none; margin: 0 auto 15px; }
+
+    .list-container { background: var(--card); border-radius: 15px; padding: 10px; border: 1px solid var(--border); min-height: 100px; }
+
+    .order-card { background: #1a1a1a; padding: 18px; border-radius: 15px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05); border-left: 4px solid var(--primary); }
+
+    #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #fff; color: #000; padding: 12px 25px; border-radius: 50px; font-weight: 600; box-shadow: 0 5px 20px rgba(0,0,0,0.5); z-index: 2000; display: none; font-size: 0.85rem; }
+    #toast.show { display: block; animation: fadeInUp 0.3s ease; }
+
+    @keyframes fadeInUp { from { opacity: 0; transform: translate(-50%, 20px); } to { opacity: 1; transform: translate(-50%, 0); } }
+    .loading-spinner { text-align: center; padding: 30px; color: var(--text-gray); }
+</style>
+
+</head>
+<body>
+<header class="header">
+<a href="index.html" style="color:#fff; text-decoration:none;"><i class="fas fa-home"></i></a>
+<h1>Gents <span>Choice</span> Admin</h1>
+<button class="logout-btn" onclick="handleAdminLogout()" title="Logout">
+<i class="fas fa-sign-out-alt"></i>
+</button>
+</header>
+<div class="container">
+    <!-- ১. লোগো আপডেট -->
+    <h2><i class="fas fa-image"></i> Shop Logo</h2>
+    <div class="form-card" style="text-align: center;">
+        <img id="currentLogo" src="" alt="Logo">
+        <div class="input-group">
+            <input type="file" id="logoInput" accept="image/*">
+        </div>
+        <button id="logoBtn" class="action-btn" onclick="updateLogo()">Update Logo</button>
+    </div>
+
+    <!-- ২. অ্যাড প্রোডাক্ট ফর্ম -->
+    <h2><i class="fas fa-plus-circle"></i> Add New Product</h2>
+    <div class="form-card">
+        <div class="input-group">
+            <label>Product Name</label>
+            <input type="text" id="pName" placeholder="e.g. Esport Jersey 2024">
+        </div>
+        <div class="input-group">
+            <label>Category</label>
+            <select id="pCategory">
+                <option value="All">All</option>
+                <option value="Popular iteam">Popular iteam</option>
+                <option value="Esport jersey">Esport jersey</option>
+                <option value="Football Jersey">Football Jersey</option>
+                <option value="Finger sleeve">Finger sleeve</option>
+                <option value="Colin fan">Colin fan</option>
+                <option value="Ff card">Ff card</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label>Price (TK)</label>
+            <input type="number" id="pPrice" placeholder="e.g. 550">
+        </div>
+        <div class="input-group">
+            <label>Description (Optional)</label>
+            <textarea id="pDesc" placeholder="Fabric info, quality etc..."></textarea>
+        </div>
+        <div class="input-group">
+            <label>Main Image</label>
+            <input type="file" id="pImage" accept="image/*">
+        </div>
+        <div class="input-group">
+            <label>Gallery Images (Optional - Max 3)</label>
+            <input type="file" id="pGallery" accept="image/*" multiple>
+        </div>
+        <button id="addBtn" class="action-btn" style="background: var(--success);" onclick="addNewProduct()">
+            <i class="fas fa-check"></i> Save Product
+        </button>
+    </div>
+
+    <!-- ৩. ইনভেন্টরি -->
+    <h2><i class="fas fa-boxes"></i> Live Inventory</h2>
+    <div class="list-container" id="adminProductList">
+        <div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i><p>Loading Products...</p></div>
+    </div>
+
+    <!-- ৪. অর্ডার্স -->
+    <h2><i class="fas fa-shopping-cart"></i> Recent Orders</h2>
+    <div id="orderList">
+        <div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i><p>Loading Orders...</p></div>
+    </div>
+</div>
+
+<div id="toast"></div>
+
+<script src="admin.js"></script>
+<script>
+    // Auth Check
+    if (localStorage.getItem('adminAuth') !== 'true') {
+        window.location.replace('login.html');
+    }
+
+    // Logout Function - Fixed Quotes
+    function handleAdminLogout() {
+        if(confirm("Do you want to logout?")) {
+            localStorage.removeItem('adminAuth');
+            window.location.replace('index.html');
+        }
+    }
+
+    // Gallery selection limit - Fixed Quotes
+    const galleryInput = document.getElementById('pGallery');
+    if(galleryInput) {
+        galleryInput.addEventListener('change', function() {
+            if (this.files.length > 3) {
+                alert("Please select maximum 3 gallery images.");
+                this.value = '';
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

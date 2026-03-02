@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DadaXWear | Amar Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body class="dark-theme">
+
+    <div class="profile-dashboard">
+        <!-- Top Action Bar -->
+        <div class="profile-top-bar">
+            <a href="help.html" class="help-action-btn">Help Me</a>
+            <a href="setting.html" class="settings-action-btn">
+                <i class="fas fa-cog"></i>
+            </a>
+        </div>
+
+        <!-- Main Profile Info -->
+        <div class="profile-main-card">
+            <div class="profile-avatar">
+                <img id="display-img" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User">
+            </div>
+            <h2 id="display-name">Loading...</h2>
+            <p id="display-username">@username</p>
+        </div>
+
+        <!-- Detailed Info List -->
+        <div class="info-container">
+            <div class="info-row">
+                <div class="info-label"><i class="fas fa-envelope"></i> Email</div>
+                <div class="info-value" id="display-email">-</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label"><i class="fas fa-phone"></i> Phone</div>
+                <div class="info-value" id="display-phone">-</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label"><i class="fas fa-calendar-alt"></i> Birth Year</div>
+                <div class="info-value" id="display-birth">-</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label"><i class="fas fa-user-clock"></i> Age</div>
+                <div class="info-value" id="display-age">-</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label"><i class="fas fa-map-marker-alt"></i> Address</div>
+                <div class="info-value" id="display-address">-</div>
+            </div>
+        </div>
+
+        <!-- Footer Actions -->
+        <div class="profile-footer-actions">
+            <button class="edit-profile-btn" id="editBtn">
+                <i class="fas fa-user-edit"></i> EDIT PROFILE
+            </button>
+            <button class="sign-out-btn" id="signOutBtn">
+                <i class="fas fa-sign-out-alt"></i> SIGN OUT
+            </button>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="index.html"><i class="fas fa-home"></i></a>
+        <a href="index.html"><i class="fas fa-shopping-bag"></i></a>
+        <a href="profile.html" class="active"><i class="fas fa-user"></i></a>
+    </nav>
+
+    <!-- Internal Script (Replacing profile.js) -->
+    <script>
+        const API_BASE = 'https://dadaxwear.com/api';
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const userPhone = localStorage.getItem('user_phone');
+
+            // যদি ফোন নম্বর না থাকে, তবে তাকে লগইন/সেটআপ পেজে পাঠাও
+            if (!userPhone) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // প্রোফাইল ডাটা লোড করা
+            try {
+                const res = await fetch(`${API_BASE}/user/get-profile/${userPhone}`);
+                const data = await res.json();
+
+                if (data.exists) {
+                    updateProfileUI(data.user);
+                } else {
+                    window.location.href = 'login.html';
+                }
+            } catch (err) {
+                console.error("Profile Load Error:", err);
+            }
+
+            // সাইন আউট লজিক
+            document.getElementById('signOutBtn').onclick = () => {
+                localStorage.removeItem('user_phone');
+                localStorage.removeItem('dxw_user');
+                window.location.href = 'login.html';
+            };
+
+            // এডিট বাটন লজিক
+            document.getElementById('editBtn').onclick = () => {
+                window.location.href = 'login.html';
+            };
+        });
+
+        function updateProfileUI(user) {
+            document.getElementById('display-name').innerText = user.name || 'User';
+            document.getElementById('display-username').innerText = `@${user.username || 'username'}`;
+            document.getElementById('display-email').innerText = user.email || '-';
+            document.getElementById('display-phone').innerText = user.phone || '-';
+            document.getElementById('display-birth').innerText = user.birthYear || '-';
+            document.getElementById('display-age').innerText = user.age || '-';
+            document.getElementById('display-address').innerText = user.address || '-';
+
+            if (user.profileImage) {
+                const imgUrl = user.profileImage.startsWith('http') ? user.profileImage : `http://156.67.219.98:5001${user.profileImage}`;
+                document.getElementById('display-img').src = imgUrl;
+            }
+        }
+    </script>
+</body>
+</html>

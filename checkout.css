@@ -1,0 +1,244 @@
+/* ======================================================
+   DADAXWEAR PREMIUM CHECKOUT - ENHANCED v6.0
+   ====================================================== */
+
+.checkout-body {
+    background-color: var(--bg);
+    min-height: 100vh;
+    padding-bottom: 120px;
+}
+
+.checkout-grid {
+    padding: 20px 15px;
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* --- Section Styling --- */
+.checkout-section {
+    background: var(--card);
+    border-radius: 24px;
+    padding: 22px;
+    border: 1px solid var(--border);
+    animation: fadeIn 0.4s ease-out;
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.step-num {
+    background: var(--primary);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 12px var(--primary-glow);
+}
+
+.section-heading h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* --- Form & Selection Update --- */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.input-box-modern label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+    margin-left: 5px;
+    font-weight: 600;
+}
+
+.input-box-modern input, 
+.input-box-modern select,
+.input-box-modern textarea {
+    width: 100%;
+    padding: 14px 16px;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    color: var(--text);
+    font-size: 0.95rem;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    appearance: none; /* সিলেক্ট বক্সের ডিফল্ট অ্যারো সরানোর জন্য */
+}
+
+/* সিলেক্ট বক্সের জন্য কাস্টম অ্যারো */
+.input-box-modern select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23ff8c00'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 18px;
+    padding-right: 40px;
+    cursor: pointer;
+}
+
+.input-box-modern input:focus, 
+.input-box-modern select:focus,
+.input-box-modern textarea:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 4px var(--primary-glow);
+    background-color: var(--card);
+}
+
+.selection-row {
+    display: flex;
+    gap: 12px;
+}
+
+/* --- Summary & Receipt Styling --- */
+.checkout-items-container {
+    max-height: 250px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+/* কার্ট আইটেমগুলোর ছোট প্রিভিউ */
+.checkout-item-mini {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.mini-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    object-fit: cover;
+    background: var(--bg);
+}
+
+.price-breakdown {
+    background: rgba(255, 140, 0, 0.03);
+    border-radius: 18px;
+    padding: 18px;
+    margin-top: 15px;
+    border: 1px solid var(--border);
+}
+
+.price-line {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+}
+
+.total-highlight {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 2px dashed var(--border);
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: var(--primary);
+}
+
+/* --- Payment Options --- */
+.pay-card {
+    padding: 18px;
+    background: var(--bg);
+    border-radius: 18px;
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+    position: relative;
+}
+
+.pay-card.active {
+    border-color: var(--primary);
+    background: rgba(255, 140, 0, 0.05);
+}
+
+.check-icon {
+    position: absolute;
+    right: 20px;
+    color: var(--primary);
+    font-size: 1.2rem;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.pay-card.active .check-icon {
+    opacity: 1;
+}
+
+/* --- Confirm Button --- */
+.confirm-container {
+    position: sticky;
+    bottom: 20px;
+    z-index: 10;
+}
+
+.master-checkout-btn {
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--primary), #ff4400);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-weight: 800;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 12px 24px var(--primary-glow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    transition: 0.3s;
+}
+
+.master-checkout-btn:active {
+    transform: scale(0.96);
+}
+
+/* --- TrxID Input --- */
+.trx-input {
+    width: 100%;
+    margin-top: 12px;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1.5px solid var(--primary);
+    background: var(--bg);
+    color: var(--primary);
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}

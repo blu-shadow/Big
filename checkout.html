@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Secure Checkout | DadaXWear</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="checkout.css">
+</head>
+<body class="dark-theme checkout-body">
+
+    <div id="toast-container"><div id="toast"></div></div>
+
+    <header class="top-header">
+        <div class="header-container">
+            <div class="brand" onclick="location.href='index.html'" style="cursor: pointer;">
+                <i class="fas fa-chevron-left"></i>
+                <span class="logo-text">CHECK<span>OUT</span></span>
+            </div>
+            <div class="header-status">
+                <i class="fas fa-shield-check" style="color: #2ecc71; margin-right: 5px;"></i> 
+                <span style="font-size: 0.7rem; color: #2ecc71; font-weight: 700;">SECURE</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="checkout-grid">
+            
+            <section class="checkout-section">
+                <div class="section-heading">
+                    <span class="step-num">1</span>
+                    <h3>Shipping & Preferences</h3>
+                </div>
+                <div class="form-container">
+                    <div class="input-box-modern">
+                        <label>Receiver's Full Name</label>
+                        <input type="text" id="cust-name" placeholder="Enter full name" required>
+                    </div>
+                    <div class="input-box-modern">
+                        <label>Active Phone Number</label>
+                        <input type="tel" id="cust-phone" placeholder="01XXXXXXXXX" required>
+                    </div>
+                    
+                    <div class="selection-row" style="display: flex; gap: 10px; margin-bottom: 5px;">
+                        <div class="input-box-modern" style="flex: 1;">
+                            <label>Size</label>
+                            <select id="order-size">
+                                <option value="S">S</option>
+                                <option value="M" selected>M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                                <option value="XXL">XXL</option>
+                            </select>
+                        </div>
+                        <div class="input-box-modern" style="flex: 1;">
+                            <label>Hand Type</label>
+                            <select id="order-hand">
+                                <option value="Half Sleeve" selected>Half Sleeve</option>
+                                <option value="Full Sleeve">Full Sleeve</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-box-modern">
+                        <label>Delivery Area</label>
+                        <select id="delivery-area" onchange="renderCheckout()">
+                            <option value="60" selected>Inside Chittagong (60 TK)</option>
+                            <option value="150">Outside Chittagong (150 TK)</option>
+                        </select>
+                    </div>
+
+                    <div class="input-box-modern">
+                        <label>Detailed Address</label>
+                        <textarea id="cust-address" rows="3" placeholder="House, Road, Area, District..." required></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <section class="checkout-section">
+                <div class="section-heading">
+                    <span class="step-num">2</span>
+                    <h3>Order Summary</h3>
+                </div>
+                <div class="checkout-summary-card">
+                    <div id="checkout-items-list" class="checkout-items-container">
+                        <!-- Items injected by JS -->
+                    </div>
+                    
+                    <div class="price-breakdown">
+                        <div class="price-line"><span>Items Total</span><span><span id="summary-subtotal">0</span> TK</span></div>
+                        <div class="price-line"><span>Delivery Fee</span><span><span id="summary-shipping">60</span> TK</span></div>
+                        <div class="price-line total-highlight">
+                            <span>Total Payable</span>
+                            <span class="final-price" style="color: var(--primary);"><span id="summary-total">0</span> TK</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="checkout-section">
+                <div class="section-heading">
+                    <span class="step-num">3</span>
+                    <h3>Payment Method</h3>
+                </div>
+                <div class="payment-options">
+                    <label class="pay-card active" id="label-cod">
+                        <input type="radio" name="payment" value="cod" checked onchange="handlePaymentChange('cod')">
+                        <div class="pay-info">
+                            <div class="pay-icon-box" style="margin-right: 15px;"><i class="fas fa-truck-fast"></i></div>
+                            <div class="pay-text">
+                                <strong style="display: block;">Cash on Delivery</strong>
+                                <small style="color: var(--text-dim);">Pay when you receive</small>
+                            </div>
+                        </div>
+                        <i class="fas fa-check-circle check-icon" style="margin-left: auto; color: var(--primary);"></i>
+                    </label>
+
+                    <label class="pay-card" id="label-bkash" style="margin-top: 10px;">
+                        <input type="radio" name="payment" value="bkash" onchange="handlePaymentChange('bkash')">
+                        <div class="pay-info">
+                            <div class="pay-icon-box" style="margin-right: 15px;"><i class="fas fa-mobile-screen"></i></div>
+                            <div class="pay-text">
+                                <strong style="display: block;">bKash / Nagad</strong>
+                                <small style="color: var(--text-dim);">Send money manually</small>
+                            </div>
+                        </div>
+                        <i class="fas fa-check-circle check-icon" style="margin-left: auto; color: var(--primary); opacity: 0;"></i>
+                    </label>
+
+                    <div id="trx-box" style="display: none; margin-top: 15px; padding: 15px; background: rgba(255,140,0,0.05); border: 1px dashed var(--primary); border-radius: 12px;">
+                        <p style="font-size: 0.8rem; color: #a0a0a0; margin-bottom: 10px;">
+                            Please Send Money to: <b style="color: var(--primary);">01815143360</b> (Personal)
+                        </p>
+                        <input type="text" id="trx-id" class="trx-input" placeholder="Enter Transaction ID (TrxID)" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--primary); background: transparent; color: white; text-align: center;">
+                    </div>
+                </div>
+            </section>
+
+            <div class="confirm-container" style="margin-top: 30px; margin-bottom: 50px;">
+                <button class="master-checkout-btn" id="place-order-btn" onclick="processOrder()">
+                    <span>CONFIRM ORDER</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <div id="order-success-modal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; align-items: center; justify-content: center;">
+        <div class="modal-content" style="background: #1a1a1a; padding: 40px 20px; border-radius: 24px; text-align: center; max-width: 350px; width: 90%; border: 1px solid #333;">
+            <div class="success-icon" style="font-size: 5rem; color: #2ecc71; margin-bottom: 20px;"><i class="fas fa-check-circle"></i></div>
+            <h2 style="color: #fff; font-size: 1.8rem;">Order Confirmed!</h2>
+            <p style="color: #a0a0a0; margin: 15px 0 25px;">Thank you for shopping with us. We will contact you shortly to verify your order.</p>
+            <button onclick="location.href='index.html'" class="master-checkout-btn" style="width: 100%;">BACK TO HOME</button>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://dadaxwear.com/api';
+
+        // ১. কার্ট রেন্ডার করা
+        function renderCheckout() {
+            const cart = JSON.parse(localStorage.getItem('dxw_cart')) || [];
+            const container = document.getElementById('checkout-items-list');
+            if (!container) return;
+
+            if (cart.length === 0) {
+                container.innerHTML = `<p style="color:gray; text-align:center;">Cart is empty</p>`;
+                return;
+            }
+
+            let subtotal = 0;
+            container.innerHTML = cart.map(item => {
+                const price = Number(item.price) || 0;
+                const qty = Number(item.quantity) || 1;
+                subtotal += (price * qty);
+                return `
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+                        <img src="http://156.67.219.98:5001${item.image}" style="width:45px; height:45px; border-radius:8px; object-fit:cover;" onerror="this.src='https://via.placeholder.com/50'">
+                        <div style="flex:1;">
+                            <div style="color:white; font-size:0.85rem; font-weight:500;">${item.name}</div>
+                            <div style="color:#888; font-size:0.75rem;">${qty} x ${price} TK</div>
+                        </div>
+                        <div style="color:var(--primary); font-weight:600;">${qty * price} TK</div>
+                    </div>
+                `;
+            }).join('');
+
+            const charge = parseInt(document.getElementById('delivery-area').value);
+            document.getElementById('summary-subtotal').innerText = subtotal;
+            document.getElementById('summary-shipping').innerText = charge;
+            document.getElementById('summary-total').innerText = subtotal + charge;
+        }
+
+        // ২. পেমেন্ট মেথড চেঞ্জ
+        function handlePaymentChange(method) {
+            const trxBox = document.getElementById('trx-box');
+            const codLabel = document.getElementById('label-cod');
+            const bkashLabel = document.getElementById('label-bkash');
+
+            if (method === 'bkash') {
+                trxBox.style.display = 'block';
+                bkashLabel.classList.add('active');
+                bkashLabel.querySelector('.check-icon').style.opacity = "1";
+                codLabel.classList.remove('active');
+                codLabel.querySelector('.check-icon').style.opacity = "0";
+            } else {
+                trxBox.style.display = 'none';
+                codLabel.classList.add('active');
+                codLabel.querySelector('.check-icon').style.opacity = "1";
+                bkashLabel.classList.remove('active');
+                bkashLabel.querySelector('.check-icon').style.opacity = "0";
+            }
+        }
+
+        // ৩. অর্ডার প্রসেস করা (মেইন ফাংশন)
+        async function processOrder() {
+            console.log("Starting order process...");
+            const btn = document.getElementById('place-order-btn');
+            const cart = JSON.parse(localStorage.getItem('dxw_cart')) || [];
+
+            if (cart.length === 0) {
+                alert("Cart is empty!");
+                return;
+            }
+
+            // ভ্যালু সংগ্রহ
+            const name = document.getElementById('cust-name').value.trim();
+            const phone = document.getElementById('cust-phone').value.trim();
+            const address = document.getElementById('cust-address').value.trim();
+            const size = document.getElementById('order-size').value;
+            const hand = document.getElementById('order-hand').value;
+            const areaEl = document.getElementById('delivery-area');
+            const shippingCharge = parseInt(areaEl.value);
+            const shippingArea = areaEl.options[areaEl.selectedIndex].text;
+            
+            const paymentRadio = document.querySelector('input[name="payment"]:checked');
+            const paymentMethod = paymentRadio ? paymentRadio.value : 'cod';
+            const trxId = document.getElementById('trx-id')?.value.trim() || 'N/A';
+
+            // ভ্যালিডেশন
+            if (!name || !phone || !address) {
+                alert("Please fill name, phone and address!");
+                return;
+            }
+
+            // ডাটা স্ট্রাকচার (ব্যাকএন্ড মডেলে যা যা দরকার)
+            const orderData = {
+                customer: { name, phone, address },
+                items: cart.map(item => ({
+                    productId: item.id || item._id,
+                    name: item.name,
+                    quantity: Number(item.quantity),
+                    price: Number(item.price),
+                    size: size,
+                    handType: hand
+                })),
+                shippingArea: shippingArea,
+                shippingCharge: shippingCharge,
+                totalAmount: cart.reduce((s, i) => s + (Number(i.price) * Number(i.quantity)), 0) + shippingCharge,
+                paymentMethod: paymentMethod,
+                transactionId: trxId
+            };
+
+            try {
+                btn.disabled = true;
+                btn.innerHTML = `<span>PROCESSING...</span>`;
+
+                const res = await fetch(`${API_BASE}/orders`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(orderData)
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    localStorage.removeItem('dxw_cart');
+                    document.getElementById('order-success-modal').style.display = 'flex';
+                } else {
+                    alert("Order Failed: " + (data.message || "Unknown error"));
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Connection Error. Is the server running?");
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<span>CONFIRM ORDER</span> <i class="fas fa-arrow-right"></i>`;
+            }
+        }
+
+        // পেজ লোড হলে কার্ট দেখাও
+        window.onload = renderCheckout;
+    </script>
+</body>
+</html>

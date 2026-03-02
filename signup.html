@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Create Account | DadaXWear</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="login.css"> 
+    <link rel="stylesheet" href="signup.css"> 
+</head>
+<body class="dark-theme">
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+        <div id="toast"></div>
+    </div>
+
+    <div class="auth-container">
+        <a href="index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Shop
+        </a>
+
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <img src="uploads/logos/default.png" alt="DadaXWear" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'">
+                </div>
+                <h2>Create Account</h2>
+                <p>Join the elite jersey community</p>
+            </div>
+
+            <form id="signup-form" class="auth-form">
+                <!-- Full Name field (Backend-এ 'username' হিসেবে যাবে যদি তুমি চাও) -->
+                <div class="input-box">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="reg-name" placeholder="Full Name" required>
+                </div>
+
+                <div class="input-box">
+                    <i class="fas fa-envelope"></i>
+                    <!-- auth-client.js এই আইডিটি ব্যবহার করে ডেটা পাঠাবে -->
+                    <input type="text" id="reg-email" placeholder="Username (Unique)" required>
+                </div>
+
+                <div class="input-box">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="reg-password" placeholder="Create Password" required>
+                </div>
+
+                <div class="input-box">
+                    <i class="fas fa-shield-alt"></i>
+                    <input type="password" id="reg-confirm-password" placeholder="Confirm Password" required>
+                </div>
+
+                <div class="terms-box">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">I agree to the <a href="#">Terms & Conditions</a></label>
+                </div>
+
+                <button type="submit" class="auth-btn" id="signup-submit-btn">
+                    CREATE ACCOUNT <i class="fas fa-user-plus"></i>
+                </button>
+            </form>
+
+            <div class="divider"><span>OR</span></div>
+
+            <button class="google-btn" id="google-signup-trigger" type="button">
+                <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" alt="G">
+                Sign up with Google
+            </button>
+
+            <div class="auth-footer">
+                <p>Already have an account? <a href="login.html">Login Now</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="auth-client.js"></script>
+</body>
+</html>

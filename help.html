@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Help Center | DadaXWear</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --accent: #ff8c00;
+            --bg-dark: #0f1115;
+            --card-bg: #1a1d24;
+            --text-white: #ffffff;
+            --text-dim: #a0a0a0;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg-dark);
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-white);
+            line-height: 1.6;
+        }
+
+        .help-container {
+            padding: 20px;
+            padding-bottom: 100px;
+        }
+
+        /* Top Navigation */
+        .help-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .back-btn {
+            color: var(--text-white);
+            font-size: 20px;
+            text-decoration: none;
+            background: var(--card-bg);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        /* Welcome Section */
+        .welcome-box {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .welcome-box h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .welcome-box p {
+            color: var(--text-dim);
+            font-size: 14px;
+        }
+
+        /* Instruction Cards */
+        .help-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--accent);
+        }
+
+        .step-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.3s;
+        }
+
+        .step-card:active {
+            transform: scale(0.98);
+        }
+
+        .step-number {
+            background: var(--accent);
+            color: #fff;
+            width: 25px;
+            height: 25px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .step-card h4 {
+            margin: 0 0 8px 0;
+            font-size: 16px;
+        }
+
+        .step-card p {
+            margin: 0;
+            font-size: 13px;
+            color: var(--text-dim);
+        }
+
+        /* Support Button */
+        .contact-box {
+            background: linear-gradient(135deg, #ff8c00, #ff4400);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            margin-top: 40px;
+            box-shadow: 0 10px 20px rgba(255, 140, 0, 0.2);
+        }
+
+        .contact-box h3 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+        }
+
+        .contact-box p {
+            font-size: 13px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .whatsapp-btn {
+            background: #fff;
+            color: #ff4400;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 12px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #1a1d24;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            z-index: 100;
+        }
+
+        .bottom-nav a {
+            color: var(--text-dim);
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body class="dark-theme">
+
+    <div class="help-container">
+        <!-- Header -->
+        <div class="help-header">
+            <a href="profile.html" class="back-btn"><i class="fas fa-chevron-left"></i></a>
+            <h2>Help Center</h2>
+        </div>
+
+        <!-- Welcome -->
+        <div class="welcome-box">
+            <h1>Ki bhabe use korben?</h1>
+            <p>DadaXWear app e apnake shagoto. Amader function gula niche bujhie dewa holo.</p>
+        </div>
+
+        <!-- Section: Profile Setup -->
+        <div class="help-section">
+            <div class="section-title">
+                <i class="fas fa-user-circle"></i>
+                <span>Profile Settings</span>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h4>Profile Create</h4>
+                <p>Prothome 'Create Profile' page e giye apnar shob info (Name, Email, Image) diye profile toiri korun.</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h4>Edit Profile</h4>
+                <p>Jodi kono info bhul hoy, 'Edit Profile' button e click kore abar update korte parben.</p>
+            </div>
+        </div>
+
+        <!-- Section: Shopping -->
+        <div class="help-section">
+            <div class="section-title">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Order Korar Niom</span>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h4>Select Product</h4>
+                <p>Home ba Shop page theke apnar pochonder product ti select korun.</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h4>Add to Cart</h4>
+                <p>'Add to Cart' e click korun ebong Checkout page e giye payment details din.</p>
+            </div>
+        </div>
+
+        <!-- Section: Settings -->
+        <div class="help-section">
+            <div class="section-title">
+                <i class="fas fa-tools"></i>
+                <span>Other Features</span>
+            </div>
+
+            <div class="step-card">
+                <h4>Settings</h4>
+                <p>Settings page theke apnar app er theme ebong notifications control korte parben.</p>
+            </div>
+
+            <div class="step-card">
+                <h4>Sign Out</h4>
+                <p>Apnar account theke ber hoye jete 'Sign Out' button e click korun.</p>
+            </div>
+        </div>
+
+        <!-- Support Box -->
+        <div class="contact-box">
+            <h3>Aro help dorkar?</h3>
+            <p>Amader shathe sorasori kotha bolte niche click korun.</p>
+            <a href="https://wa.me/8801333135115" class="whatsapp-btn">
+                <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+            </a>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="index.html"><i class="fas fa-home"></i></a>
+        <a href="index.html"><i class="fas fa-shopping-bag"></i></a>
+        <a href="profile.html"><i class="fas fa-user"></i></a>
+    </nav>
+
+</body>
+</html>
